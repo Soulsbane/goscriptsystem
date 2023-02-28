@@ -17,7 +17,7 @@ type ScriptSystem struct {
 }
 
 // NewScriptSystem Initializes the Lua Script System
-func NewScriptSystem(errors *ScriptErrors) *ScriptSystem {
+func New(errors *ScriptErrors) *ScriptSystem {
 	var scriptSystem ScriptSystem
 
 	scriptSystem.state = lua.NewState()
