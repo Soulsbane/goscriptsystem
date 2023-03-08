@@ -1,7 +1,6 @@
 package goscriptsystem
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -53,13 +52,13 @@ func (s *ScriptSystem) CallFunc(funcName string, numReturnValues int, returnErro
 	return returnVal
 }
 
-func (s *ScriptSystem) HasFunc(funcName string) {
+func (s *ScriptSystem) HasFunc(funcName string) bool {
 	exists := s.state.GetGlobal(funcName)
 
 	if exists == lua.LNil {
-		fmt.Println("Function name", funcName, "not found")
+		return false
 	} else {
-		fmt.Println("Function name", funcName, "found")
+		return true
 	}
 }
 
