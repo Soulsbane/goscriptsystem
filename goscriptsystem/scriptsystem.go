@@ -1,6 +1,7 @@
 package goscriptsystem
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"path"
@@ -50,6 +51,16 @@ func (s *ScriptSystem) CallFunc(funcName string, numReturnValues int, returnErro
 	}
 
 	return returnVal
+}
+
+func (s *ScriptSystem) HasFunc(funcName string) {
+	exists := s.state.GetGlobal(funcName)
+
+	if exists == lua.LNil {
+		fmt.Println("Function name", funcName, "not found")
+	} else {
+		fmt.Println("Function name", funcName, "found")
+	}
 }
 
 // CallFuncSimple This is just sugar for calling a Lua function without having to deal with additional parameters.
