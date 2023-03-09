@@ -27,7 +27,7 @@ func New(errors *ScriptErrors) *ScriptSystem {
 }
 
 // CallFunc Call a Lua function
-func (s *ScriptSystem) CallFunc(funcName string, numReturnValues int, returnError bool, args ...lua.LValue) lua.LValue {
+func (s *ScriptSystem) CallFunc(funcName string, numReturnValues int, returnError bool, args ...lua.LValue) (lua.LValue, error) {
 	luaFunc := lua.P{
 		Fn:      s.state.GetGlobal(funcName),
 		NRet:    numReturnValues,
@@ -36,20 +36,18 @@ func (s *ScriptSystem) CallFunc(funcName string, numReturnValues int, returnErro
 
 	var returnVal lua.LValue
 
-	/*err := s.state.CallByParam(luaFunc, args...)
-
-	if err != nil {
-		fmt.Println("Function name", funcName, "not found")
-	}*/
-
-	s.state.CallByParam(luaFunc, args...)
+	err := s.state.CallByParam(luaFunc, args...)
 
 	if numReturnValues == 1 {
 		returnVal = s.state.Get(-1)
 		s.state.Pop(1)
 	}
 
-	return returnVal
+	if err != nil {
+		return returnVal, err
+	}
+
+	return returnVal, nil
 }
 
 func (s *ScriptSystem) HasFunc(funcName string) bool {
@@ -63,13 +61,25 @@ func (s *ScriptSystem) HasFunc(funcName string) bool {
 }
 
 // CallFuncSimple This is just sugar for calling a Lua function without having to deal with additional parameters.
-func (s *ScriptSystem) CallFuncSimple(funcName string, args ...lua.LValue) {
-	s.CallFunc(funcName, 0, true)
+func (s *ScriptSystem) CallFuncSimple(funcName string, args ...lua.LValue) error {
+	_, err := s.CallFunc(funcName, 0, true)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // CallFuncWithReturn Call a Lua function that has one return value
-func (s *ScriptSystem) CallFuncWithReturn(funcName string, args ...lua.LValue) lua.LValue {
-	return s.CallFunc(funcName, 1, true)
+func (s *ScriptSystem) CallFuncWithReturn(funcName string, args ...lua.LValue) (lua.LValue, error) {
+	value, err := s.CallFunc(funcName, 1, true)
+
+	if err != nil {
+		return value, err
+	}
+
+	return value, nil
 }
 
 func (s *ScriptSystem) onCreate() {
