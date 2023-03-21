@@ -107,6 +107,11 @@ func (s *ScriptSystem) NewTable() *lua.LTable {
 	return s.state.NewTable()
 }
 
+// RegisterFunction Register a function. This is here for convenience. SetGlobal is more flexible and should be preferred
+func (s *ScriptSystem) RegisterFunction(name string, fn lua.LGFunction) {
+	s.state.Register(name, fn)
+}
+
 // DoString Run the passed code string
 func (s *ScriptSystem) DoString(code string) {
 	s.state.DoString(code)

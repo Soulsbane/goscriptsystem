@@ -1,6 +1,7 @@
 package goscriptsystem
 
 import (
+	"fmt"
 	"testing"
 
 	lua "github.com/yuin/gopher-lua"
@@ -30,4 +31,22 @@ func TestFuncWithReturn(t *testing.T) {
 			t.Error("Return value is not true: ", value)
 		}
 	}
+}
+
+func TestRegisterFunc(t *testing.T) {
+	scriptSystem := New(NewScriptErrors())
+
+	scriptSystem.RegisterFunction("testFunc", func(L *lua.LState) int {
+		fmt.Println("Hello world from TestRegisterFunc")
+		return 0
+	})
+
+	scriptSystem.RegisterFunction("testFuncWithReturn", func(L *lua.LState) int {
+		fmt.Print("Hello world from TestRegisterFuncWithReturn(bool): ")
+		L.Push(lua.LBool(true))
+
+		return 1
+	})
+
+	scriptSystem.DoString(`testFunc() print(testFuncWithReturn())`)
 }
