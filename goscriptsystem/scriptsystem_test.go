@@ -7,6 +7,23 @@ import (
 	lua "github.com/yuin/gopher-lua"
 )
 
+type testGlobalStruct struct {
+	Name string
+}
+
+func TestSetGlobal(t *testing.T) {
+	scriptSystem := New(NewScriptErrors())
+	testStruct := testGlobalStruct{Name: "This is the name of the test struct"}
+
+	scriptSystem.SetGlobal("testGlobal", testSetGlobal)
+	scriptSystem.SetGlobal("TestStruct", testStruct)
+	scriptSystem.DoString(`testGlobal() print(TestStruct.Name)`)
+}
+
+func testSetGlobal() {
+	fmt.Println("Hello world from testGlobal()")
+}
+
 func TestSimpleFuncCall(t *testing.T) {
 	scriptSystem := New(NewScriptErrors())
 	scriptSystem.DoString(`function testFunc() print("Hello world from testFunc()") end`)
