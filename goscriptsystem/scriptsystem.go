@@ -26,6 +26,10 @@ func New(errors *ScriptErrors) *ScriptSystem {
 	return &scriptSystem
 }
 
+func (s *ScriptSystem) GetState() *lua.LState {
+	return s.state
+}
+
 // CallFunc Call a Lua function
 func (s *ScriptSystem) CallFunc(funcName string, numReturnValues int, returnError bool, args ...lua.LValue) (lua.LValue, error) {
 	luaFunc := lua.P{
