@@ -67,3 +67,19 @@ func TestRegisterFunc(t *testing.T) {
 
 	scriptSystem.DoString(`testFunc() print(testFuncWithReturn())`)
 }
+
+func TestLoadString(t *testing.T) {
+	scriptSystem := New(NewScriptErrors())
+	luaFunc, err := scriptSystem.LoadString(`print("Hello world from TestLoadString()")`)
+
+	if err != nil {
+		t.Error("Failed to load string: ", err)
+	}
+
+	scriptSystem.GetState().Push(luaFunc)
+	scriptSystem.GetState().PCall(0, 0, nil)
+
+	if err != nil {
+		t.Error("Failed to call lua function: ", err)
+	}
+}
