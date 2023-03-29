@@ -37,16 +37,14 @@ func TestSimpleFuncCall(t *testing.T) {
 
 func TestFuncWithReturn(t *testing.T) {
 	scriptSystem := New(NewScriptErrors())
-	scriptSystem.DoString(`function exampleReturnFunc() return true end`)
+	scriptSystem.DoString(`function exampleReturnFunc() return end`)
 
 	value, err := scriptSystem.CallFuncWithReturn("exampleReturnFunc")
 
 	if err != nil {
 		t.Error("Failed to call lua function: exampleReturnFunc")
-	} else {
-		if value.(lua.LBool) != true {
-			t.Error("Return value is not true: ", value)
-		}
+	} else if value.(lua.LBool) != true {
+		t.Error("Return value is not true: ", value)
 	}
 }
 
