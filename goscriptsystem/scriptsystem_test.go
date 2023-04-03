@@ -37,7 +37,7 @@ func TestSimpleFuncCall(t *testing.T) {
 
 func TestFuncWithReturn(t *testing.T) {
 	scriptSystem := New(NewScriptErrors())
-	scriptSystem.DoString(`function exampleReturnFunc() return end`)
+	scriptSystem.DoString(`function exampleReturnFunc() return true end`)
 
 	value, err := scriptSystem.CallFuncWithReturn("exampleReturnFunc")
 
