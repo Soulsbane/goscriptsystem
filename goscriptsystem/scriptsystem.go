@@ -89,9 +89,9 @@ func (s *ScriptSystem) CallFuncWithReturn(funcName string, args ...lua.LValue) (
 
 func (s *ScriptSystem) OnCreate(errOnNotFound bool) error {
 	if s.HasFunc("OnCreate") {
-		s.CallFuncSimple("OnCreate")
+		err := s.CallFuncSimple("OnCreate")
 
-		if errOnNotFound {
+		if errOnNotFound && err != nil {
 			return errors.New("failed to call OnCreate function. OnCreate function not found")
 		}
 
@@ -103,9 +103,9 @@ func (s *ScriptSystem) OnCreate(errOnNotFound bool) error {
 
 func (s *ScriptSystem) OnDestroy(errOnNotFound bool) error {
 	if s.HasFunc("OnDestroy") {
-		s.CallFuncSimple("OnDestroy")
+		err := s.CallFuncSimple("OnDestroy")
 
-		if errOnNotFound {
+		if errOnNotFound && err != nil {
 			return errors.New("failed to call OnDestroy function. OnDestroy function not found")
 		}
 
