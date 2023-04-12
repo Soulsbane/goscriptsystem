@@ -137,7 +137,11 @@ func (s *ScriptSystem) RegisterFunction(name string, fn lua.LGFunction) {
 
 // DoString Run the passed code string
 func (s *ScriptSystem) DoString(code string) {
-	s.state.DoString(code)
+	err := s.state.DoString(code)
+
+	if err != nil {
+		s.errors.Fatal(err)
+	}
 }
 
 // DoFile Load the file and run its code
@@ -164,7 +168,13 @@ func (s *ScriptSystem) DoFiles(dirName string) {
 
 // LoadString load the passed code string
 func (s *ScriptSystem) LoadString(code string) (*lua.LFunction, error) {
-	return s.state.LoadString(code)
+	luaFunc, err := s.state.LoadString(code)
+
+	if err != nil {
+		s.errors.Fatal(err)
+	}
+
+	return luaFunc, err
 }
 
 // LoadFile Load the file
