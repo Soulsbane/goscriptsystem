@@ -11,13 +11,17 @@ type testGlobalStruct struct {
 	Name string
 }
 
+func (t testGlobalStruct) TestStructFunc() {
+	fmt.Println("TestStruct:TestStructFunc()")
+}
+
 func TestSetGlobal(t *testing.T) {
 	scriptSystem := New(NewScriptErrors())
 	testStruct := testGlobalStruct{Name: "This is the name of the test struct"}
 
 	scriptSystem.SetGlobal("testGlobal", testSetGlobal)
 	scriptSystem.SetGlobal("TestStruct", testStruct)
-	scriptSystem.DoString(`testGlobal() print(TestStruct.Name)`)
+	scriptSystem.DoString(`testGlobal() print(TestStruct.Name) TestStruct:TestStructFunc()`)
 }
 
 func testSetGlobal() {
