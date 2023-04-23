@@ -79,7 +79,7 @@ func TestLoadString(t *testing.T) {
 	}
 
 	scriptSystem.GetState().Push(luaFunc)
-	scriptSystem.GetState().PCall(0, 0, nil)
+	err = scriptSystem.GetState().PCall(0, 0, nil)
 
 	if err != nil {
 		t.Error("Failed to call lua function: ", err)
