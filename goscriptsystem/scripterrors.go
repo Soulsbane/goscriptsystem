@@ -1,6 +1,8 @@
 package goscriptsystem
 
-import "log"
+import (
+	"log"
+)
 
 // ScriptErrors handler
 type ScriptErrors struct {

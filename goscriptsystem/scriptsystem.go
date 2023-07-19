@@ -94,8 +94,6 @@ func (s *ScriptSystem) OnCreate(errOnNotFound bool) error {
 		if errOnNotFound && err != nil {
 			return errors.New("failed to call OnCreate function. OnCreate function not found")
 		}
-
-		return nil
 	}
 
 	return nil
@@ -108,8 +106,6 @@ func (s *ScriptSystem) OnDestroy(errOnNotFound bool) error {
 		if errOnNotFound && err != nil {
 			return errors.New("failed to call OnDestroy function. OnDestroy function not found")
 		}
-
-		return nil
 	}
 
 	return nil
