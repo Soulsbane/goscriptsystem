@@ -16,12 +16,12 @@ func (t testGlobalStruct) TestStructFunc() {
 }
 
 func TestSetGlobal(t *testing.T) {
-	scriptSystem := New(NewScriptErrors())
+	scriptSystem := New(NewStdOutScriptErrors())
 	testStruct := testGlobalStruct{Name: "This is the name of the test struct"}
 
 	scriptSystem.SetGlobal("testGlobal", testSetGlobal)
 	scriptSystem.SetGlobal("TestStruct", testStruct)
-	scriptSystem.DoString(`testGlobal() print(TestStruct.Name) TestStruct:TestStructFunc()`)
+	scriptSystem.DoString(`testGlobal() print(TestStruct.Name) TestStruct:TestStructFunc)`)
 }
 
 func testSetGlobal() {
@@ -29,7 +29,7 @@ func testSetGlobal() {
 }
 
 func TestSimpleFuncCall(t *testing.T) {
-	scriptSystem := New(NewScriptErrors())
+	scriptSystem := New(NewStdOutScriptErrors())
 	scriptSystem.DoString(`function testFunc() print("Hello world from testFunc()") end`)
 
 	err := scriptSystem.CallFuncSimple("testFunc")
@@ -40,7 +40,7 @@ func TestSimpleFuncCall(t *testing.T) {
 }
 
 func TestFuncWithReturn(t *testing.T) {
-	scriptSystem := New(NewScriptErrors())
+	scriptSystem := New(NewStdOutScriptErrors())
 	scriptSystem.DoString(`function exampleReturnFunc() return true end`)
 
 	value, err := scriptSystem.CallFuncWithReturn("exampleReturnFunc")
@@ -53,7 +53,7 @@ func TestFuncWithReturn(t *testing.T) {
 }
 
 func TestRegisterFunc(t *testing.T) {
-	scriptSystem := New(NewScriptErrors())
+	scriptSystem := New(NewStdOutScriptErrors())
 
 	scriptSystem.RegisterFunction("testFunc", func(L *lua.LState) int {
 		fmt.Println("Hello world from TestRegisterFunc")
@@ -71,7 +71,7 @@ func TestRegisterFunc(t *testing.T) {
 }
 
 func TestLoadString(t *testing.T) {
-	scriptSystem := New(NewScriptErrors())
+	scriptSystem := New(NewStdOutScriptErrors())
 	luaFunc, err := scriptSystem.LoadString(`print("Hello world from TestLoadString()")`)
 
 	if err != nil {

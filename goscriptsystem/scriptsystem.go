@@ -14,11 +14,11 @@ import (
 // ScriptSystem use Lua for scripting.
 type ScriptSystem struct {
 	state  *lua.LState
-	errors *ScriptErrors
+	errors ScriptErrors
 }
 
 // NewScriptSystem Initializes the Lua Script System
-func New(errors *ScriptErrors) *ScriptSystem {
+func New(errors ScriptErrors) *ScriptSystem {
 	var scriptSystem ScriptSystem
 
 	scriptSystem.state = lua.NewState()
