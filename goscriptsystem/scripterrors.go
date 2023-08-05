@@ -2,15 +2,13 @@ package goscriptsystem
 
 import (
 	"fmt"
-	"log"
 )
 
 type ScriptErrors interface {
 	Enable()
 	Disable()
 	IsEnabled() bool
-	Fatal(err ...any)
-	Println(err ...any)
+	HandleError(err ...any)
 }
 
 // StdOutScriptErrors handler
@@ -41,14 +39,7 @@ func (s *StdOutScriptErrors) IsEnabled() bool {
 	return s.enable
 }
 
-// Fatal Stops execution with an error
-func (s *StdOutScriptErrors) Fatal(err ...any) {
-	if s.IsEnabled() {
-		log.Fatal(err...)
-	}
-}
-
-func (s *StdOutScriptErrors) Println(err ...any) {
+func (s *StdOutScriptErrors) HandleError(err ...any) {
 	if s.IsEnabled() {
 		fmt.Println(err...)
 	}

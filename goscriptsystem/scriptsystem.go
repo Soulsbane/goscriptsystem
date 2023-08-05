@@ -2,7 +2,6 @@ package goscriptsystem
 
 import (
 	"errors"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -136,7 +135,7 @@ func (s *ScriptSystem) DoString(code string) {
 	err := s.state.DoString(code)
 
 	if err != nil {
-		s.errors.Fatal(err)
+		s.errors.HandleError(err)
 	}
 }
 
@@ -145,7 +144,7 @@ func (s *ScriptSystem) DoFile(fileName string) {
 	err := s.state.DoFile(fileName)
 
 	if err != nil {
-		s.errors.Fatal(err)
+		s.errors.HandleError(err)
 	}
 }
 
@@ -154,7 +153,7 @@ func (s *ScriptSystem) DoFiles(dirName string) {
 	commandFiles, err := filepath.Glob(path.Join(dirName, "*.lua"))
 
 	if err != nil {
-		log.Fatal(err)
+		s.errors.HandleError(err)
 	}
 
 	for _, fileName := range commandFiles {
@@ -167,7 +166,7 @@ func (s *ScriptSystem) LoadString(code string) (*lua.LFunction, error) {
 	luaFunc, err := s.state.LoadString(code)
 
 	if err != nil {
-		s.errors.Fatal(err)
+		s.errors.HandleError(err)
 	}
 
 	return luaFunc, err
@@ -178,7 +177,7 @@ func (s *ScriptSystem) LoadFile(fileName string) (*lua.LFunction, error) {
 	luaFunc, err := s.state.LoadFile(fileName)
 
 	if err != nil {
-		s.errors.Fatal(err)
+		s.errors.HandleError(err)
 	}
 
 	return luaFunc, err
@@ -190,7 +189,7 @@ func (s *ScriptSystem) LoadFiles(dirName string) {
 	files, err := os.ReadDir(dirName)
 
 	if err != nil {
-		log.Fatal(err)
+		s.errors.HandleError(err)
 	}
 
 	for _, file := range files {
