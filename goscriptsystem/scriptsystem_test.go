@@ -21,7 +21,7 @@ func TestSetGlobal(t *testing.T) {
 
 	scriptSystem.SetGlobal("testGlobal", testSetGlobal)
 	scriptSystem.SetGlobal("TestStruct", testStruct)
-	scriptSystem.DoString(`testGlobal() print(TestStruct.Name) TestStruct:TestStructFunc)`)
+	scriptSystem.DoString(`function testGlobal() print(TestStruct.Name) TestStruct:TestStructFunc() end`)
 }
 
 func testSetGlobal() {
