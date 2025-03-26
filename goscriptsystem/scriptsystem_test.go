@@ -28,6 +28,54 @@ func testSetGlobal() {
 	fmt.Println("Hello world from testGlobal()")
 }
 
+func TestGetString(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+	scriptSystem.DoString(`Author = "Soulsbane"`)
+
+	testStringValue := scriptSystem.GetString("Author", "Neo")
+	testDefaultValue := scriptSystem.GetString("NonExistent", "Neo")
+
+	if testStringValue != "Soulsbane" {
+		t.Errorf("Failed to get global string variable got: %q want: Soulsbane", testStringValue)
+	}
+
+	if testDefaultValue != "Neo" {
+		t.Errorf("Failed to get default value for non-existent global variable got: %q< want: Neo", testDefaultValue)
+	}
+}
+
+func TestGetNumber(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+	scriptSystem.DoString(`Version = 100`)
+
+	testNumberValue := scriptSystem.GetNumber("Version", 0)
+	testDefaultValue := scriptSystem.GetNumber("NonExistent", 255)
+
+	if testNumberValue != 100 {
+		t.Errorf("Failed to get global number variable got: %v want: 100", testNumberValue)
+	}
+
+	if testDefaultValue != 255 {
+		t.Errorf("Failed to get default value for non-existent global variable got: %v want: 0", testDefaultValue)
+	}
+}
+
+func TestGetBool(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+	scriptSystem.DoString(`TestBool = true`)
+
+	testBoolValue := scriptSystem.GetBool("TestBool", false)
+	testDefaultValue := scriptSystem.GetBool("NonExistent", false)
+
+	if testBoolValue != true {
+		t.Errorf("Failed to get global bool variable got: %v want: true", testBoolValue)
+	}
+
+	if testDefaultValue != false {
+		t.Errorf("Failed to get default value for non-existent global variable got: %v want: false", testDefaultValue)
+	}
+}
+
 func TestSimpleFuncCall(t *testing.T) {
 	scriptSystem := New(NewStdOutScriptErrors())
 	scriptSystem.DoString(`function testFunc() print("Hello world from testFunc()") end`)

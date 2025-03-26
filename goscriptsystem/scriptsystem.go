@@ -115,6 +115,33 @@ func (s *ScriptSystem) SetGlobal(name string, value interface{}) {
 	s.state.SetGlobal(name, luar.New(s.state, value))
 }
 
+// GetString Get a string value from the Lua script variable
+func (s *ScriptSystem) GetString(name string, defaultValue string) string {
+	if s.HasFunc(name) {
+		return string(s.state.GetGlobal(name).(lua.LString))
+	}
+
+	return defaultValue
+}
+
+// GetNumber Get a float64 value from the Lua script variable
+func (s *ScriptSystem) GetNumber(name string, defaultValue float64) float64 {
+	if s.HasFunc(name) {
+		return float64(s.state.GetGlobal(name).(lua.LNumber))
+	}
+
+	return defaultValue
+}
+
+// GetBool Get a boolean value from the Lua script variable
+func (s *ScriptSystem) GetBool(name string, defaultValue bool) bool {
+	if s.HasFunc(name) {
+		return bool(s.state.GetGlobal(name).(lua.LBool))
+	}
+
+	return defaultValue
+}
+
 // DestroyScriptSystem Calls lua.LState.Close
 func (s *ScriptSystem) DestroyScriptSystem() {
 	s.state.Close()
