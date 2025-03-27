@@ -66,7 +66,7 @@ func (s *ScriptSystem) HasFunc(funcName string) bool {
 
 // CallFuncSimple This is just sugar for calling a Lua function without having to deal with additional parameters.
 func (s *ScriptSystem) CallFuncSimple(funcName string, args ...lua.LValue) error {
-	_, err := s.CallFunc(funcName, 0, true)
+	_, err := s.CallFunc(funcName, 0, true, args...)
 
 	if err != nil {
 		return err
@@ -77,7 +77,7 @@ func (s *ScriptSystem) CallFuncSimple(funcName string, args ...lua.LValue) error
 
 // CallFuncWithReturn Call a Lua function that has one return value
 func (s *ScriptSystem) CallFuncWithReturn(funcName string, args ...lua.LValue) (lua.LValue, error) {
-	value, err := s.CallFunc(funcName, 1, true)
+	value, err := s.CallFunc(funcName, 1, true, args...)
 
 	if err != nil {
 		return value, err
