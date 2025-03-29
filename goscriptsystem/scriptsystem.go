@@ -16,7 +16,7 @@ type ScriptSystem struct {
 	errors ScriptErrors
 }
 
-// NewScriptSystem Initializes the Lua Script System
+// New ScriptSystem Initializes the Lua Script System
 func New(errors ScriptErrors) *ScriptSystem {
 	var scriptSystem ScriptSystem
 
