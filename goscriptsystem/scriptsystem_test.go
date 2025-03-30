@@ -118,6 +118,16 @@ func TestRegisterFunc(t *testing.T) {
 	scriptSystem.DoString(`testFunc() print(testFuncWithReturn())`)
 }
 
+func TestOnCreate(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+	scriptSystem.DoString(`function OnCreate() print("Hello world from testOnCreate()") end`)
+	err := scriptSystem.OnCreate(true)
+
+	if err != nil {
+		t.Error("Failed to call OnCreate function: ", err)
+	}
+}
+
 func TestLoadString(t *testing.T) {
 	scriptSystem := New(NewStdOutScriptErrors())
 	luaFunc, err := scriptSystem.LoadString(`print("Hello world from TestLoadString()")`)
