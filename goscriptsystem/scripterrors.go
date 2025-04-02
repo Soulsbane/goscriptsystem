@@ -16,7 +16,7 @@ type StdOutScriptErrors struct {
 	enable bool
 }
 
-// NewScriptErrors Creates a new StdOutScriptErrors object
+// NewStdOutScriptErrors Creates a new StdOutScriptErrors object
 func NewStdOutScriptErrors() *StdOutScriptErrors {
 	var errors StdOutScriptErrors
 	errors.enable = true
