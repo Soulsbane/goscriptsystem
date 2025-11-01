@@ -143,3 +143,14 @@ func TestLoadString(t *testing.T) {
 		t.Error("Failed to call lua function: ", err)
 	}
 }
+
+func TestLoadStringAndCallFunc(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+
+	args := []string{"first", "second", "third", "fourth"}
+	err := scriptSystem.LoadStringWithArgs(`local args = {...} for i, v in ipairs(args) do print(v) end`, args)
+
+	if err != nil {
+		t.Error("Failed to load string: ", err)
+	}
+}
