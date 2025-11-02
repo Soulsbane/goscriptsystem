@@ -154,3 +154,14 @@ func TestLoadStringAndCallFunc(t *testing.T) {
 		t.Error("Failed to load string: ", err)
 	}
 }
+
+func TestLoadFileWithArgs(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+
+	args := []string{"first", "second", "third", "fourth"}
+	err := scriptSystem.LoadFileWithArgs("test.lua", args)
+
+	if err != nil {
+		t.Error("Failed to load string: ", err)
+	}
+}
