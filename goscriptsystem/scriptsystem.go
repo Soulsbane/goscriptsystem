@@ -200,15 +200,15 @@ func (s *ScriptSystem) LoadString(code string) (*lua.LFunction, error) {
 }
 
 func (s *ScriptSystem) LoadStringWithArgs(code string, args []string) error {
-	newFunc, err := s.LoadString(code)
+	luaFunc, err := s.LoadString(code)
 
 	if err != nil {
 		return err
 	} else {
-		s.state.Push(newFunc)
+		s.state.Push(luaFunc)
 
 		for _, arg := range args {
-			s.state.Push((lua.LString(arg)))
+			s.state.Push(lua.LString(arg))
 		}
 
 		err := s.state.PCall(len(args), -1, nil)
@@ -242,7 +242,7 @@ func (s *ScriptSystem) LoadFileWithArgs(fileName string, args []string) error {
 		s.state.Push(luaFunc)
 
 		for _, arg := range args {
-			s.state.Push((lua.LString(arg)))
+			s.state.Push(lua.LString(arg))
 		}
 
 		err := s.state.PCall(len(args), -1, nil)
