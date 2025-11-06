@@ -199,6 +199,7 @@ func (s *ScriptSystem) LoadString(code string) (*lua.LFunction, error) {
 	return luaFunc, err
 }
 
+// LoadStringWithArgs Load the passed code string and pass arguments to it
 func (s *ScriptSystem) LoadStringWithArgs(code string, args []string) error {
 	luaFunc, err := s.LoadString(code)
 
@@ -232,7 +233,7 @@ func (s *ScriptSystem) LoadFile(fileName string) (*lua.LFunction, error) {
 	return luaFunc, err
 }
 
-// LoadFileWithArgs Load the file
+// LoadFileWithArgs Load the file and pass arguments to it
 func (s *ScriptSystem) LoadFileWithArgs(fileName string, args []string) error {
 	luaFunc, err := s.LoadFile(fileName)
 
