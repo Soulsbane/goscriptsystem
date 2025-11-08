@@ -144,7 +144,7 @@ func TestLoadString(t *testing.T) {
 	}
 }
 
-func TestLoadStringAndCallFunc(t *testing.T) {
+func TestLoadStringWithArgs(t *testing.T) {
 	scriptSystem := New(NewStdOutScriptErrors())
 
 	args := []string{"first", "second", "third", "fourth"}
