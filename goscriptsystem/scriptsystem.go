@@ -112,7 +112,7 @@ func (s *ScriptSystem) OnDestroy(errOnNotFound bool) error {
 }
 
 // SetGlobal Just like the Lua version.
-func (s *ScriptSystem) SetGlobal(name string, value interface{}) {
+func (s *ScriptSystem) SetGlobal(name string, value any) {
 	s.state.SetGlobal(name, luar.New(s.state, value))
 }
 
