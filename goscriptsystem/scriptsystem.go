@@ -2,6 +2,7 @@ package goscriptsystem
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path"
 	"path/filepath"
@@ -277,4 +278,9 @@ func (s *ScriptSystem) LoadFiles(dirName string) []*lua.LFunction {
 	}
 
 	return funcList
+}
+
+// AddPackagePath Adds a new path to the package.path variable
+func (s *ScriptSystem) AddPackagePath(newPath string) {
+	s.state.DoString(fmt.Sprintf(`package.path = package.path .. ";%s"`, newPath))
 }

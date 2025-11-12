@@ -157,11 +157,23 @@ func TestLoadStringWithArgs(t *testing.T) {
 
 func TestLoadFileWithArgs(t *testing.T) {
 	scriptSystem := New(NewStdOutScriptErrors())
+	args := []string{"hello", "world"}
 
-	args := []string{"first", "second", "third", "fourth"}
-	err := scriptSystem.LoadFileWithArgs("test.lua", args)
+	err := scriptSystem.LoadFileWithArgs("testscripts/args.lua", args)
 
 	if err != nil {
-		t.Error("Failed to load string: ", err)
+		t.Error("Failed to load file: ", err)
+	}
+}
+
+func TestAddPackagePathWithArgs(t *testing.T) {
+	scriptSystem := New(NewStdOutScriptErrors())
+	args := []string{"2", "3", "4"}
+
+	scriptSystem.AddPackagePath("./testmodules/?.lua")
+	err := scriptSystem.LoadFileWithArgs("testscripts/packagepath.lua", args)
+
+	if err != nil {
+		t.Error("Failed to load file: ", err)
 	}
 }
