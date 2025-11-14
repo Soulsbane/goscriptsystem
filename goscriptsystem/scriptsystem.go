@@ -282,5 +282,9 @@ func (s *ScriptSystem) LoadFiles(dirName string) []*lua.LFunction {
 
 // AddPackagePath Adds a new path to the package.path variable
 func (s *ScriptSystem) AddPackagePath(newPath string) {
-	s.state.DoString(fmt.Sprintf(`package.path = package.path .. ";%s"`, newPath))
+	err := s.state.DoString(fmt.Sprintf(`package.path = package.path .. ";%s"`, newPath))
+
+	if err != nil {
+		s.errors.HandleError(err)
+	}
 }
