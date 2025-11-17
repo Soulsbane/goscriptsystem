@@ -147,8 +147,8 @@ func TestLoadString(t *testing.T) {
 func TestLoadStringWithArgs(t *testing.T) {
 	scriptSystem := New(NewStdOutScriptErrors())
 
-	args := []string{"first", "second", "third", "fourth"}
-	err := scriptSystem.LoadStringWithArgs(`local args = {...} for i, v in ipairs(args) do print(v) end`, args)
+	args := []string{"hello", "world"}
+	err := scriptSystem.LoadStringWithArgs(`local args = { ... } assert(args[1] == "hello")`, args)
 
 	if err != nil {
 		t.Error("Failed to load string: ", err)
